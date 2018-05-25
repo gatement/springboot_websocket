@@ -61,11 +61,8 @@ public class MyWebSocket {
 		System.out.println("来自客户端的消息:" + message);
 
 		// echo back
-		try {
-			sendMessage("[" + String.valueOf(System.currentTimeMillis()) + "] " + message);
-		} catch (IOException e) {
-			System.out.println("IO异常");
-		}
+		String msg = "[" + String.valueOf(System.currentTimeMillis()) + "] " + message;
+		sendToAll(msg);
 	}
 
 	/**
@@ -85,7 +82,7 @@ public class MyWebSocket {
 	/**
 	 * 群发自定义消息
 	 */
-	public static void sendInfo(String message) throws IOException {
+	public static void sendToAll(String message) {
 		for (MyWebSocket item : webSocketSet) {
 			try {
 				item.sendMessage(message);
